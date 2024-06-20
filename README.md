@@ -1,3 +1,9 @@
+# Pembayaran SPP
+
+## Deskripsi Aplikasi
+
+## Fitur dan Role dalam Aplikasi
+
 | Fitur                      | Administrator | Petugas | Siswa |
 | -------------------------- | ------------- | ------- | ----- |
 | Login                      | √             | √       | √     |
@@ -10,7 +16,7 @@
 | Lihat History Pembayaran   | √             | √       | √     |
 | Generate Laporan           | √             |         |       |
 
-Berikut DDL untuk Pembayaran SPP :
+## Berikut DDL untuk Pembayaran SPP :
 
 ```sql
 CREATE DATABASE IF NOT EXISTS pembayaran_spp;
@@ -61,6 +67,162 @@ CREATE TABLE IF NOT EXISTS tb_pembayaran(
 );
 ```
 
-Berikut endpoint, request dan response:
+## JSON API Collections
 
-1. `CREATE`
+This repository contains a collection of API endpoints in JSON format, organized by functionality. Below are instructions on how to use each endpoint along with example requests and responses.
+
+## Base Path
+
+All endpoints in this collection share a common base path: `/api/v1`. Ensure that you prepend this base path to all endpoint URLs when making requests.
+
+## Authentication
+
+All endpoints in this API require authentication using JWT (JSON Web Tokens). To access any endpoint, you must include a valid JWT token in the Authorization header of your requests.
+
+## Endpoints
+
+### Data Siswa
+
+#### Endpoint: `/data_siswa`
+
+- **Description** :
+- **Method** : `POST`
+- **Header** : `Authorization` : `Bearer <your JWT Token>`
+
+- **Request** :
+
+```json
+{
+  "nisn": 1234567890,
+  "nis": 12345678,
+  "nama": "Asep Saepudin",
+  "id_kelas": 1,
+  "alamat": "Desa Ciuyah",
+  "no_telp": "085722456782",
+  "id_spp": 1
+}
+```
+
+- **Response** :
+
+```json
+{
+  "responseCode": "2000101",
+  "responseMessage": "success"
+}
+```
+
+#### Endpoint: `/data_siswa`
+
+- **Description** :
+- **Method** : `GET`
+- **Header** : `Authorization` : `Bearer <your JWT Token>`
+
+- **Response** :
+
+```json
+{
+  "responseCode": "2000102",
+  "responseMessage": "success",
+  "data": [
+    {
+      "nisn": 1234567890,
+      "nis": 12345678,
+      "nama": "Asep Saepudin",
+      "id_kelas": 1,
+      "alamat": "Desa Ciuyah",
+      "no_telp": "085722456782",
+      "id_spp": 1
+    },
+    {
+      "nisn": 1234567899,
+      "nis": 12345677,
+      "nama": "Wahyudi Hamisi",
+      "id_kelas": 1,
+      "alamat": "Desa Waledasem",
+      "no_telp": "085722456797",
+      "id_spp": 1
+    }
+  ],
+  "paging": {
+    "page": 1,
+    "totalPages": 1,
+    "totalData": 2
+  }
+}
+```
+
+#### Endpoint: `/data_siswa/:id`
+
+- **Description** :
+- **Method** : `GET`
+- **Header** : `Authorization` : `Bearer <your JWT Token>`
+
+- **Response** :
+
+```json
+{
+  "responseCode": "2000103",
+  "responseMessage": "success",
+  "data": {
+    "nisn": 1234567890,
+    "nis": 12345678,
+    "nama": "Asep Saepudin",
+    "kelas": {
+      "id_kelas": 1,
+      "nama_kelas": "XII",
+      "kompetensi_keahlian": "Rekayasa Perangkat Lunak"
+    },
+    "alamat": "Desa Ciuyah",
+    "no_telp": "085722456782",
+    "id_spp": {
+      "id_spp": 1,
+      "tahun": 2024,
+      "nominal": 150.0
+    }
+  }
+}
+```
+
+#### Endpoint: `/data_siswa/:id`
+
+- **Description** :
+- **Method** : `PUT`
+- **Header** : `Authorization` : `Bearer <your JWT Token>`
+
+- **Request** :
+
+```json
+{
+  "nis": 12345678,
+  "nama": "Asep Saepudin",
+  "id_kelas": 1,
+  "alamat": "Desa Ciuyah",
+  "no_telp": "085722456782",
+  "id_spp": 1
+}
+```
+
+- **Response** :
+
+```json
+{
+  "responseCode": "2000104",
+  "responseMessage": "success"
+}
+```
+
+#### Endpoint: `/data_siswa/:id`
+
+- **Description** :
+- **Method** : `DELETE`
+- **Header** : `Authorization` : `Bearer <your JWT Token>`
+
+- **Response** :
+
+```json
+{
+  "responseCode": "2000105",
+  "responseMessage": "success"
+}
+```
