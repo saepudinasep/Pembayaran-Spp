@@ -26,45 +26,79 @@ CREATE DATABASE IF NOT EXISTS pembayaran_spp;
 CREATE TYPE level AS ENUM ('ADMIN', 'PETUGAS');
 
 CREATE TABLE IF NOT EXISTS tb_spp(
-    id_spp int(11) PRIMARY KEY,
-    tahun int(11),
-    nominal int(11)
+    id_spp INT PRIMARY KEY,
+    tahun INT,
+    nominal int
 );
 
 CREATE TABLE IF NOT EXISTS tb_kelas(
-    id_kelas int(11) PRIMARY KEY,
-    nama_kelas varchar(10),
-    kompetensi_keahlian varchar(50)
+    id_kelas INT PRIMARY KEY,
+    nama_kelas VARCHAR(10),
+    kompetensi_keahlian VARCHAR(50)
 );
 
 CREATE TABLE IF NOT EXISTS tb_petugas(
-    id_petugas int(11) PRIMARY KEY,
-    username varchar(25),
-    password varchar(35),
-    nama_petugas varchar(35),
+    id_petugas INT PRIMARY KEY,
+    username VARCHAR(25),
+    password VARCHAR(35),
+    nama_petugas VARCHAR(35),
     level level
 );
 
 CREATE TABLE IF NOT EXISTS tb_siswa(
-    nisn varchar(10) PRIMARY KEY,
-    nis varchar(8) UNIQUE NOT NULL,
-    nama varchar(35),
-    id_kelas int(11) REFERENCES tb_kelas(id_kelas),
-    alamat text,
-    no_telp varchar(13),
-    id_spp int(11) REFERENCES tb_spp(id_spp)
+    nisn VARCHAR(10) PRIMARY KEY,
+    nis VARCHAR(8) UNIQUE NOT NULL,
+    nama VARCHAR(35),
+    id_kelas INT REFERENCES tb_kelas(id_kelas),
+    alamat TEXT,
+    no_telp VARCHAR(13),
+    id_spp INT REFERENCES tb_spp(id_spp)
 );
 
 CREATE TABLE IF NOT EXISTS tb_pembayaran(
-    id_pembayaran int(11) PRIMARY KEY,
-    id_petugas int(11) REFERENCES tb_petugas(id_petugas),
-    nisn varchar(10) REFERENCES tb_siswa(nisn),
-    tgl_bayar date,
-    bulan_dibayar varchar(8),
-    tahun_dibayar varchar(4),
-    id_spp int(11) REFERENCES tb_spp(id_spp),
-    jumlah_bayar int(11)
+    id_pembayaran INT PRIMARY KEY,
+    id_petugas INT REFERENCES tb_petugas(id_petugas),
+    nisn VARCHAR(10) REFERENCES tb_siswa(nisn),
+    tgl_bayar TIMESTAMP,
+    bulan_dibayar VARCHAR(8),
+    tahun_dibayar VARCHAR(4),
+    id_spp INT REFERENCES tb_spp(id_spp),
+    jumlah_bayar INT
 );
+```
+
+## Berikut DML untuk Contoh Data Pembayaran Spp:
+
+```sql
+-- Insert sample data into tb_spp
+INSERT INTO tb_spp (id_spp, tahun, nominal) VALUES
+(1, 2022, 2000000),
+(2, 2023, 2200000),
+(3, 2024, 2500000);
+
+-- Insert sample data into tb_kelas
+INSERT INTO tb_kelas (id_kelas, nama_kelas, kompetensi_keahlian) VALUES
+(1, 'X AK 1', 'Akuntansi'),
+(2, 'XI AP 1', 'Administrasi Perkantoran'),
+(3, 'XII RPL 1', 'Rekayasa Perangkat Lunak');
+
+-- Insert sample data into tb_petugas
+INSERT INTO tb_petugas (id_petugas, username, password, nama_petugas, level) VALUES
+(1, 'admin01', 'password123', 'Admin One', 'ADMIN'),
+(2, 'petugas01', 'password123', 'Petugas One', 'PETUGAS'),
+(3, 'petugas02', 'password123', 'Petugas Two', 'PETUGAS');
+
+-- Insert sample data into tb_siswa
+INSERT INTO tb_siswa (nisn, nis, nama, id_kelas, alamat, no_telp, id_spp) VALUES
+('1234567890', '11111111', 'Student One', 1, '123 Street A', '081234567890', 1),
+('1234567891', '11111112', 'Student Two', 2, '456 Street B', '081234567891', 2),
+('1234567892', '11111113', 'Student Three', 3, '789 Street C', '081234567892', 3);
+
+-- Insert sample data into tb_pembayaran
+INSERT INTO tb_pembayaran (id_pembayaran, id_petugas, nisn, tgl_bayar, bulan_dibayar, tahun_dibayar, id_spp, jumlah_bayar) VALUES
+(1, 1, '1234567890', '2022-01-10 10:00:00', 'January', '2022', 1, 2000000),
+(2, 2, '1234567891', '2023-02-15 11:30:00', 'February', '2023', 2, 2200000),
+(3, 3, '1234567892', '2024-03-20 09:45:00', 'March', '2024', 3, 2500000);
 ```
 
 ## JSON API Collections
@@ -80,6 +114,39 @@ All endpoints in this collection share a common base path: `/api/v1`. Ensure tha
 All endpoints in this API require authentication using JWT (JSON Web Tokens). To access any endpoint, you must include a valid JWT token in the Authorization header of your requests.
 
 ## Endpoints
+
+### Authentication
+
+#### Endpoint: "/login"
+
+- **Description** :
+- **Method** : `POST`
+- **Header** : `Authorization` : `Basic Auth`
+
+- **Request** :
+
+```json
+{
+  "nisn": 1234567890,
+  "nis": 12345678,
+  "nama": "Asep Saepudin",
+  "id_kelas": 1,
+  "alamat": "Desa Ciuyah",
+  "no_telp": "085722456782",
+  "id_spp": 1
+}
+```
+
+- **Response** :
+
+```json
+{
+  "responseCode": "2000101",
+  "responseMessage": "success"
+}
+```
+
+#### Endpoint: "/logout"
 
 ### Data Siswa
 
