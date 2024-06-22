@@ -16,4 +16,9 @@ type (
 		NamaPetugas string `json:"nama_petugas,omitempty"`
 		Level       string `json:"level,omitempty"`
 	}
+
+	PetugasLogin struct {
+		Username string `json:"username" bidding:"required"`
+		Password string `json:"password" bidding:"required"`
+	}
 )

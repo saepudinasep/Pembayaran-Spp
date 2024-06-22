@@ -509,7 +509,7 @@ All endpoints in this API require authentication using JWT (JSON Web Tokens). To
 
 ```json
 {
-  "responseCode": "2000203",
+  "responseCode": "2000303",
   "responseMessage": "success",
   "data": {
     "id_kelas": 1,
@@ -538,7 +538,7 @@ All endpoints in this API require authentication using JWT (JSON Web Tokens). To
 
 ```json
 {
-  "responseCode": "2000204",
+  "responseCode": "2000304",
   "responseMessage": "success",
   "data": {
     "id_kelas": 1,
@@ -558,7 +558,134 @@ All endpoints in this API require authentication using JWT (JSON Web Tokens). To
 
 ```json
 {
-  "responseCode": "2000205",
+  "responseCode": "2000305",
   "responseMessage": "success"
 }
 ```
+
+### Data Spp
+
+#### Endpoint: `/data_spp`
+
+- **Description** : Adds a new school fee (SPP) record to the system using the provided information.
+- **Method** : `POST`
+- **Header** : `Authorization` : `Bearer <your JWT Token>`
+
+- **Request** :
+
+```json
+{
+  "id_spp": 1,
+  "tahun": 2022,
+  "nominal": 100000
+}
+```
+
+- **Response** :
+
+```json
+{
+  "responseCode": "2000401",
+  "responseMessage": "success"
+}
+```
+
+#### Endpoint: `/data_spp`
+
+- **Description** : Retrieves a list of school fee (SPP) records from the system.
+- **Method** : `GET`
+- **Header** : `Authorization` : `Bearer <your JWT Token>`
+
+- **Response** :
+
+```json
+{
+  "responseCode": "2000402",
+  "responseMessage": "success",
+  "data": [
+    {
+      "id_spp": 1,
+      "tahun": 2022,
+      "nominal": 100000
+    },
+    {
+      "id_spp": 2,
+      "tahun": 2023,
+      "nominal": 150000
+    }
+  ],
+  "paging": {
+    "page": 1,
+    "totalPages": 1,
+    "totalData": 2
+  }
+}
+```
+
+#### Endpoint: `/data_spp/:id`
+
+- **Description** : Retrieves the details of a specific school fee (SPP) using its ID.
+- **Method** : `GET`
+- **Header** : `Authorization` : `Bearer <your JWT Token>`
+
+- **Response** :
+
+```json
+{
+  "responseCode": "2000403",
+  "responseMessage": "success",
+  "data": {
+    "id_spp": 1,
+    "tahun": 2022,
+    "nominal": 100000
+  }
+}
+```
+
+#### Endpoint: `/data_spp/:id`
+
+- **Description** : Updates the details of a specific school fee (SPP) using its ID.
+- **Method** : `PUT`
+- **Header** : `Authorization` : `Bearer <your JWT Token>`
+
+- **Request** :
+
+```json
+{
+  "tahun": 2022,
+  "nominal": 100000
+}
+```
+
+- **Response** :
+
+```json
+{
+  "responseCode": "2000404",
+  "responseMessage": "success",
+  "data": {
+    "id_spp": 1,
+    "tahun": 2022,
+    "nominal": 100000
+  }
+}
+```
+
+#### Endpoint: `/data_spp/:id`
+
+- **Description** : Deletes a specific school fee (SPP) record using its ID.
+- **Method** : `DELETE`
+- **Header** : `Authorization` : `Bearer <your JWT Token>`
+
+- **Response** :
+
+```json
+{
+  "responseCode": "2000405",
+  "responseMessage": "success"
+}
+```
+
+### Entri Transaksi Pembayaran
+
+#### Endpoint: `/transaksi_pembayaran`
