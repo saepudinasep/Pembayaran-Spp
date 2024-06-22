@@ -117,23 +117,18 @@ All endpoints in this API require authentication using JWT (JSON Web Tokens). To
 
 ### Authentication
 
-#### Endpoint: "/login"
+#### Endpoint: "/login/siswa"
 
-- **Description** :
+- **Description** : Authenticates a student using their NISN and NIS and returns a JWT token upon successful login.
 - **Method** : `POST`
-- **Header** : `Authorization` : `Basic Auth`
+- **Header** : `Authorization` : `Basic Auth admin:admin`
 
 - **Request** :
 
 ```json
 {
   "nisn": 1234567890,
-  "nis": 12345678,
-  "nama": "Asep Saepudin",
-  "id_kelas": 1,
-  "alamat": "Desa Ciuyah",
-  "no_telp": "085722456782",
-  "id_spp": 1
+  "nis": 12345678
 }
 ```
 
@@ -141,18 +136,42 @@ All endpoints in this API require authentication using JWT (JSON Web Tokens). To
 
 ```json
 {
-  "responseCode": "2000101",
-  "responseMessage": "success"
+  "responseCode": "2000000",
+  "responseMessage": "success",
+  "data": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTkwMTQ3OTcsImlzcyI6ImluY3ViYXRpb24tZ29sYW5nIiwidXNlcm5hbWUiOiJhZG1pbiIsInJvbGUiOiJBRE1JTiJ9.-qQTObos7rnAjJFoG2FJhYRckwCLjOR6C2PDR2wPu2g"
 }
 ```
 
-#### Endpoint: "/logout"
+#### Endpoint: "/login/petugas"
+
+- **Description** : Authenticates a staff member using their username and password, and returns a JWT token upon successful login.
+- **Method** : `POST`
+- **Header** : `Authorization` : `Basic Auth admin:admin`
+
+- **Request** :
+
+```json
+{
+  "username": "admin",
+  "password": "admin"
+}
+```
+
+- **Response** :
+
+```json
+{
+  "responseCode": "2000000",
+  "responseMessage": "success",
+  "data": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTkwMTQ3OTcsImlzcyI6ImluY3ViYXRpb24tZ29sYW5nIiwidXNlcm5hbWUiOiJhZG1pbiIsInJvbGUiOiJBRE1JTiJ9.-qQTObos7rnAjJFoG2FJhYRckwCLjOR6C2PDR2wPu2g"
+}
+```
 
 ### Data Siswa
 
 #### Endpoint: `/data_siswa`
 
-- **Description** :
+- **Description** : Adds a new student record to the system using the provided student information.
 - **Method** : `POST`
 - **Header** : `Authorization` : `Bearer <your JWT Token>`
 
@@ -181,7 +200,7 @@ All endpoints in this API require authentication using JWT (JSON Web Tokens). To
 
 #### Endpoint: `/data_siswa`
 
-- **Description** :
+- **Description** : Retrieves a list of student records from the system.
 - **Method** : `GET`
 - **Header** : `Authorization` : `Bearer <your JWT Token>`
 
@@ -221,7 +240,7 @@ All endpoints in this API require authentication using JWT (JSON Web Tokens). To
 
 #### Endpoint: `/data_siswa/:id`
 
-- **Description** :
+- **Description** : Retrieves the details of a specific student using their ID.
 - **Method** : `GET`
 - **Header** : `Authorization` : `Bearer <your JWT Token>`
 
@@ -253,7 +272,7 @@ All endpoints in this API require authentication using JWT (JSON Web Tokens). To
 
 #### Endpoint: `/data_siswa/:id`
 
-- **Description** :
+- **Description** : Updates the details of a specific student using their ID.
 - **Method** : `PUT`
 - **Header** : `Authorization` : `Bearer <your JWT Token>`
 
@@ -281,7 +300,7 @@ All endpoints in this API require authentication using JWT (JSON Web Tokens). To
 
 #### Endpoint: `/data_siswa/:id`
 
-- **Description** :
+- **Description** : Deletes a specific student record using their ID.
 - **Method** : `DELETE`
 - **Header** : `Authorization` : `Bearer <your JWT Token>`
 
@@ -290,6 +309,256 @@ All endpoints in this API require authentication using JWT (JSON Web Tokens). To
 ```json
 {
   "responseCode": "2000105",
+  "responseMessage": "success"
+}
+```
+
+### Data Petugas
+
+#### Endpoint: `/data_petugas`
+
+- **Description** : Adds a new staff member to the system using the provided staff information.
+- **Method** : `POST`
+- **Header** : `Authorization` : `Bearer <your JWT Token>`
+
+- **Request** :
+
+```json
+{
+  "id_petugas": 1,
+  "username": "admin01",
+  "nama_petugas": "Admin One",
+  "level": "ADMIN"
+}
+```
+
+- **Response** :
+
+```json
+{
+  "responseCode": "2000201",
+  "responseMessage": "success"
+}
+```
+
+#### Endpoint: `/data_petugas`
+
+- **Description** : Retrieves a list of staff member records from the system.
+- **Method** : `GET`
+- **Header** : `Authorization` : `Bearer <your JWT Token>`
+
+- **Response** :
+
+```json
+{
+  "responseCode": "2000202",
+  "responseMessage": "success",
+  "data": [
+    {
+      "id_petugas": 1,
+      "username": "admin01",
+      "nama_petugas": "Admin One",
+      "level": "ADMIN"
+    },
+    {
+      "id_petugas": 2,
+      "username": "petugas01",
+      "nama_petugas": "Petugas One",
+      "level": "PETUGAS"
+    }
+  ],
+  "paging": {
+    "page": 1,
+    "totalPages": 1,
+    "totalData": 2
+  }
+}
+```
+
+#### Endpoint: `/data_petugas/:id`
+
+- **Description** : Retrieves the details of a specific staff member using their ID.
+- **Method** : `GET`
+- **Header** : `Authorization` : `Bearer <your JWT Token>`
+
+- **Response** :
+
+```json
+{
+  "responseCode": "2000203",
+  "responseMessage": "success",
+  "data": {
+    "id_petugas": 1,
+    "username": "admin01",
+    "nama_petugas": "Admin One",
+    "level": "ADMIN"
+  }
+}
+```
+
+#### Endpoint: `/data_petugas/:id`
+
+- **Description** : Updates the details of a specific staff member using their ID.
+- **Method** : `PUT`
+- **Header** : `Authorization` : `Bearer <your JWT Token>`
+
+- **Request** :
+
+```json
+{
+  "nama_petugas": "Admin One-One"
+}
+```
+
+- **Response** :
+
+```json
+{
+  "responseCode": "2000204",
+  "responseMessage": "success",
+  "data": {
+    "id_petugas": 1,
+    "username": "admin01",
+    "nama_petugas": "Admin One-One",
+    "level": "ADMIN"
+  }
+}
+```
+
+#### Endpoint: `/data_petugas/:id`
+
+- **Description** : Deletes a specific staff member record using their ID.
+- **Method** : `DELETE`
+- **Header** : `Authorization` : `Bearer <your JWT Token>`
+
+- **Response** :
+
+```json
+{
+  "responseCode": "2000205",
+  "responseMessage": "success"
+}
+```
+
+### Data Kelas
+
+#### Endpoint: `/data_kelas`
+
+- **Description** : Adds a new class record to the system using the provided class information.
+- **Method** : `POST`
+- **Header** : `Authorization` : `Bearer <your JWT Token>`
+
+- **Request** :
+
+```json
+{
+  "id_kelas": 1,
+  "nama_kelas": "X AK 1",
+  "kompetensi_keahlian": "Akuntansi"
+}
+```
+
+- **Response** :
+
+```json
+{
+  "responseCode": "2000301",
+  "responseMessage": "success"
+}
+```
+
+#### Endpoint: `/data_kelas`
+
+- **Description** : Retrieves a list of class records from the system.
+- **Method** : `GET`
+- **Header** : `Authorization` : `Bearer <your JWT Token>`
+
+- **Response** :
+
+```json
+{
+  "responseCode": "2000302",
+  "responseMessage": "success",
+  "data": [
+    {
+      "id_kelas": 1,
+      "nama_kelas": "X AK 1",
+      "kompetensi_keahlian": "Akuntansi"
+    },
+    {
+      "id_kelas": 2,
+      "nama_kelas": "XI AP 1",
+      "kompetensi_keahlian": "Administrasi Perkantoran"
+    }
+  ],
+  "paging": {
+    "page": 1,
+    "totalPages": 1,
+    "totalData": 2
+  }
+}
+```
+
+#### Endpoint: `/data_kelas/:id`
+
+- **Description** : Retrieves the details of a specific class using its ID.
+- **Method** : `GET`
+- **Header** : `Authorization` : `Bearer <your JWT Token>`
+
+- **Response** :
+
+```json
+{
+  "responseCode": "2000203",
+  "responseMessage": "success",
+  "data": {
+    "id_kelas": 1,
+    "nama_kelas": "X AK 1",
+    "kompetensi_keahlian": "Akuntansi"
+  }
+}
+```
+
+#### Endpoint: `/data_kelas/:id`
+
+- **Description** : Updates the details of a specific class using its ID.
+- **Method** : `PUT`
+- **Header** : `Authorization` : `Bearer <your JWT Token>`
+
+- **Request** :
+
+```json
+{
+  "nama_kelas": "X AK 1",
+  "kompetensi_keahlian": "Akuntansi"
+}
+```
+
+- **Response** :
+
+```json
+{
+  "responseCode": "2000204",
+  "responseMessage": "success",
+  "data": {
+    "id_kelas": 1,
+    "nama_kelas": "X AK 1",
+    "kompetensi_keahlian": "Akuntansi"
+  }
+}
+```
+
+#### Endpoint: `/data_kelas/:id`
+
+- **Description** : Deletes a specific class record using its ID.
+- **Method** : `DELETE`
+- **Header** : `Authorization` : `Bearer <your JWT Token>`
+
+- **Response** :
+
+```json
+{
+  "responseCode": "2000205",
   "responseMessage": "success"
 }
 ```
