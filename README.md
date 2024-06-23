@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS tb_kelas(
 CREATE TABLE IF NOT EXISTS tb_petugas(
     id_petugas INT PRIMARY KEY,
     username VARCHAR(25),
-    password VARCHAR(35),
+    password VARCHAR(255),
     nama_petugas VARCHAR(35),
     level level
 );
@@ -84,9 +84,9 @@ INSERT INTO tb_kelas (id_kelas, nama_kelas, kompetensi_keahlian) VALUES
 
 -- Insert sample data into tb_petugas
 INSERT INTO tb_petugas (id_petugas, username, password, nama_petugas, level) VALUES
-(1, 'admin01', 'password123', 'Admin One', 'ADMIN'),
-(2, 'petugas01', 'password123', 'Petugas One', 'PETUGAS'),
-(3, 'petugas02', 'password123', 'Petugas Two', 'PETUGAS');
+(1, 'admin01', '$2a$12$OopSsL7cjRtdXo8l3V1ZwePFHmjF/ZImC0Jgu6DDC6uyU2P2sX1jW', 'Admin One', 'ADMIN'),
+(2, 'petugas01', '$2a$12$OopSsL7cjRtdXo8l3V1ZwePFHmjF/ZImC0Jgu6DDC6uyU2P2sX1jW', 'Petugas One', 'PETUGAS'),
+(3, 'petugas02', '$2a$12$OopSsL7cjRtdXo8l3V1ZwePFHmjF/ZImC0Jgu6DDC6uyU2P2sX1jW', 'Petugas Two', 'PETUGAS');
 
 -- Insert sample data into tb_siswa
 INSERT INTO tb_siswa (nisn, nis, nama, id_kelas, alamat, no_telp, id_spp) VALUES
